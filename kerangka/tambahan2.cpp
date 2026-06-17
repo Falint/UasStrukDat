@@ -148,38 +148,6 @@ public:
 // Instansiasi Hash Table Custom
 CustomHashTable dataPenumpang;
 
-void tampilStatistikHash() {
-    dataPenumpang.tampilStatistik();
-}
-
-void sortTiketPenumpang() {
-    string nama;
-    
-    cout << "\n=== Sorting Tiket ===\n";
-    cout << "Masukkan Nama Penumpang: ";
-    getline(cin, nama);
-    
-    vector<Ticket>* listTiket = dataPenumpang.cari(nama);
-    
-    if (listTiket == nullptr) {
-        cout << "Penumpang tidak ditemukan.\n";
-        return;
-    }
-    
-    sort(listTiket->begin(), listTiket->end(), [](const Ticket& a, const Ticket& b) {
-        return a.namaKereta < b.namaKereta;
-    });
-    
-    cout << "\n=== Hasil Setelah Sorting ===\n";
-    
-    int nomor = 1;
-    for (const auto& tiket : *listTiket) {
-        cout << nomor++ << ". " << tiket.namaKereta << " (" << tiket.jamBerangkat << ") | " << tiket.asal << " -> " << tiket.tujuan << endl;
-    }
-    
-    cout << "\nTiket berhasil diurutkan.\n";
-}
-
 // Helper function untuk membersihkan buffer input (mencegah infinite loop cin)
 void clearInput() {
     cin.clear();
@@ -233,6 +201,58 @@ void tampilSemuaData() {
     cout << "\n=== Seluruh Data Penumpang ===\n";
     // Memanggil metode cetakSemua dari Hash Table kustom kita untuk memperlihatkan pembagian Bucket
     dataPenumpang.cetakSemua();
+}
+
+void tampilStatistikHash() {
+    dataPenumpang.tampilStatistik();
+}
+
+void sortTiketPenumpang() {
+    string nama;
+    
+    cout << "\n=== Sorting Tiket ===\n";
+    cout << "Masukkan Nama Penumpang: ";
+    getline(cin, nama);
+    
+    vector<Ticket>* listTiket = dataPenumpang.cari(nama);
+    
+    if (listTiket == nullptr) {
+        cout << "Penumpang tidak ditemukan.\n";
+        return;
+    }
+    
+    int choice;
+    cout << "Pilih kriteria sorting:\n";
+    cout << "1. Nama Kereta\n";
+    cout << "2. Jam Berangkat\n";
+    cout << "Masukkan pilihan: ";
+    cin >> choice;
+    clearInput();
+
+    switch (choice) {
+        case 1:
+            sort(listTiket->begin(), listTiket->end(), [](const Ticket& a, const Ticket& b) {
+                return a.namaKereta < b.namaKereta;
+            });
+            break;
+        case 2:
+            sort(listTiket->begin(), listTiket->end(), [](const Ticket& a, const Ticket& b) {
+                return a.jamBerangkat < b.jamBerangkat;
+            });
+            break;
+        default:
+            cout << "Pilihan tidak valid.\n";
+            return;
+    }
+
+    cout << "\n=== Hasil Setelah Sorting ===\n";
+    
+    int nomor = 1;
+    for (const auto& tiket : *listTiket) {
+        cout << nomor++ << ". " << tiket.namaKereta << " (" << tiket.jamBerangkat << ") | " << tiket.asal << " -> " << tiket.tujuan << endl;
+    }
+    
+    cout << "\nTiket berhasil diurutkan.\n";
 }
 
 void editTiket() {
