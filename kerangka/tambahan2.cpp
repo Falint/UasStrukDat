@@ -357,7 +357,7 @@ void generateDummyData() {
 }
 
 void menu() {
-    int pilihan;
+    char pilihan;
     do {
         cout << "\n================================\n";
         cout << "   MANAJEMEN TIKET KERETA API   \n";
@@ -380,17 +380,17 @@ void menu() {
         clearInput(); // Membersihkan sisa enter (\n)
 
         switch (pilihan) {
-            case 1: tambahTiket(); break;
-            case 2: cariPenumpang(); break;
-            case 3: tampilSemuaData(); break;
-            case 4: editTiket(); break;
-            case 5: hapusTiket(); break;
-            case 6: tampilStatistikHash();break;
-            case 7: sortTiketPenumpang(); break;
-            case 0: cout << "Keluar dari program...\n"; break;
+            case '1': tambahTiket(); break;
+            case '2': cariPenumpang(); break;
+            case '3': tampilSemuaData(); break;
+            case '4': editTiket(); break;
+            case '5': hapusTiket(); break;
+            case '6': tampilStatistikHash();break;
+            case '7': sortTiketPenumpang(); break;
+            case '0': cout << "Keluar dari program...\n"; break;
             default: cout << "Pilihan tidak valid.\n";
         }
-    } while (pilihan != 0);
+    } while (pilihan != '0');
 }
 
 int main() {
